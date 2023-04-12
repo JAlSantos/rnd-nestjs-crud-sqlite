@@ -3,23 +3,23 @@ import { Entity, Column, PrimaryGeneratedColumn } from 'typeorm';
 @Entity()
 export class Contact {
   @PrimaryGeneratedColumn()
-  id: number;
+  public id: number;
 
   @Column()
-  firstName: string;
+  public firstName: string;
 
   @Column()
-  lastName: string;
+  public lastName: string;
 
   @Column()
-  email: string;
+  public email: string;
 
   @Column()
-  phone: string;
+  public phone: string;
 
   @Column()
-  city: string;
+  public city: string;
 
   @Column()
-  country: string;
+  public country: string;
 }

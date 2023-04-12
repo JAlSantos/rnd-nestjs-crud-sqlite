@@ -12,17 +12,23 @@ const app_controller_1 = require("./app.controller");
 const app_service_1 = require("./app.service");
 const contacts_module_1 = require("./contacts/contacts.module");
 const typeorm_1 = require("@nestjs/typeorm");
+const config_1 = require("@nestjs/config");
+const env_helper_1 = require("./common/helpers/env.helper");
+const typeorm_service_1 = require("./shared/typeorm/typeorm.service");
+const envFilePath = (0, env_helper_1.getEnvPath)(`${__dirname}/common/envs`);
+console.log(envFilePath);
 let AppModule = class AppModule {
 };
 AppModule = __decorate([
     (0, common_1.Module)({
         imports: [
             contacts_module_1.ContactsModule,
-            typeorm_1.TypeOrmModule.forRoot({
-                type: 'sqlite',
-                database: 'db',
-                entities: [__dirname + '/**/*.entity{.ts,.js}'],
-                synchronize: true,
+            config_1.ConfigModule.forRoot({
+                envFilePath,
+                isGlobal: true,
+            }),
+            typeorm_1.TypeOrmModule.forRootAsync({
+                useClass: typeorm_service_1.TypeOrmConfigService,
             }),
         ],
         controllers: [app_controller_1.AppController],
